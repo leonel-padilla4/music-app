@@ -1,0 +1,7 @@
+{
+  "name": "Sonora",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
