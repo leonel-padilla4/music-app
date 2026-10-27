@@ -10,4 +10,14 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'buscar',
+    loadComponent: () =>
+      import('./buscar/buscar.page').then( m => m.BuscarPage)
+  },
+  {
+    path: 'biblioteca',
+    loadComponent: () =>
+      import('./biblioteca/biblioteca.page').then( m => m.BibliotecaPage)
+  },
 ];

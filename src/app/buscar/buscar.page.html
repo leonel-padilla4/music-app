@@ -1,0 +1,143 @@
+
+<ion-content [fullscreen]="true" class="buscar-content">
+
+  <header class="buscar-header">
+    <a routerLink="/home" class="brand">
+      <span class="brand-icon">♫</span>
+      <span>sonora</span>
+    </a>
+
+    <span class="header-label">EXPLORAR MÚSICA</span>
+  </header>
+
+  <main class="buscar-main">
+
+    <section class="buscar-intro">
+      <p class="section-subtitle">DESCUBRE TU PRÓXIMO SONIDO</p>
+      <h1>Buscar</h1>
+      <p>Encuentra canciones, artistas y álbumes que te gusten.</p>
+    </section>
+
+    <section class="search-box">
+      <span class="search-icon">⌕</span>
+
+      <input
+        type="text"
+        [(ngModel)]="busqueda"
+        placeholder="¿Qué quieres escuchar?"
+        aria-label="Buscar música"
+      />
+
+      @if (busqueda !== '') {
+        <button
+          type="button"
+          class="clear-search"
+          (click)="busqueda = ''"
+          aria-label="Limpiar búsqueda">
+          ×
+        </button>
+      }
+    </section>
+
+    <section class="filter-section">
+      <h2>Explorar por género</h2>
+
+      <div class="category-list">
+        @for (categoria of categorias; track categoria) {
+          <button
+            type="button"
+            class="category-button"
+            [class.active]="categoriaSeleccionada === categoria"
+            (click)="seleccionarCategoria(categoria)">
+            {{ categoria }}
+          </button>
+        }
+      </div>
+    </section>
+
+    <section class="results-section">
+      <div class="results-heading">
+        <div>
+          <p class="section-subtitle">TU MÚSICA</p>
+          <h2>{{ busqueda.trim() ? 'Resultados' : 'Todas las canciones' }}</h2>
+        </div>
+
+        <span class="results-count">
+          {{ cancionesFiltradas.length }}
+          {{ cancionesFiltradas.length === 1 ? 'canción' : 'canciones' }}
+        </span>
+      </div>
+
+      @if (cancionesFiltradas.length > 0) {
+        <div class="song-list">
+          @for (cancion of cancionesFiltradas; track cancion.id; let i = $index) {
+            <article class="song-item">
+              <div
+                class="song-cover"
+                [class.cover-one]="i % 4 === 0"
+                [class.cover-two]="i % 4 === 1"
+                [class.cover-three]="i % 4 === 2"
+                [class.cover-four]="i % 4 === 3">
+                ♫
+              </div>
+
+              <div class="song-details">
+                <h3>{{ cancion.titulo }}</h3>
+                <p>{{ cancion.artista }}</p>
+                <span>{{ cancion.album }} · {{ cancion.categoria }}</span>
+              </div>
+
+
+<button
+  type="button"
+  class="favorite-button"
+  (click)="alternarFavorito(cancion.id)"
+  [attr.aria-label]="esFavorita(cancion.id)
+    ? 'Quitar de favoritos'
+    : 'Agregar a favoritos'">
+  {{ esFavorita(cancion.id) ? '♥' : '♡' }}
+</button>
+
+<span class="song-duration">
+  {{ (cancion.duracion / 60 | number:'1.0-0') }} min
+</span>
+
+            </article>
+          }
+        </div>
+      } @else {
+        <div class="empty-results">
+          <span>⌕</span>
+          <h3>No encontramos resultados</h3>
+          <p>Prueba con otro título, artista o género musical.</p>
+
+          <button
+            type="button"
+            class="category-button active"
+            (click)="busqueda = ''; categoriaSeleccionada = 'Todo'">
+            Ver todas las canciones
+          </button>
+        </div>
+      }
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <a routerLink="/home" class="nav-item">
+      <span>⌂</span>
+      <small>Inicio</small>
+    </a>
+
+    <a routerLink="/buscar" class="nav-item active">
+      <span>⌕</span>
+      <small>Buscar</small>
+    </a>
+
+    <a routerLink="/biblioteca" class="nav-item">
+      <span>♫</span>
+      <small>Biblioteca</small>
+    </a>
+  </nav>
+
+</ion-content>

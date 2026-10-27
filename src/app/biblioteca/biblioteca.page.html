@@ -1,0 +1,96 @@
+
+<ion-content [fullscreen]="true" class="biblioteca-content">
+
+  <header class="top-header">
+
+<button type="button" class="back-button" routerLink="/home">
+  <span>←</span>
+  Volver al inicio
+</button>
+
+    <a routerLink="/home" class="brand">
+      <span class="brand-icon">♫</span>
+      <span>sonora</span>
+    </a>
+
+    <span class="library-badge">MI ESPACIO</span>
+  </header>
+
+  <main class="library-main">
+
+    <section class="hero">
+      <p class="section-subtitle">TU COLECCIÓN PERSONAL</p>
+      <h1>Tu biblioteca<span>.</span></h1>
+      <p class="hero-description">
+        Toda la música que te gusta, reunida en un solo lugar.
+      </p>
+    </section>
+
+    <section class="library-summary">
+      <div class="summary-icon">♫</div>
+      <div>
+        <strong>{{ favoritos.length }}</strong>
+        <p>canciones favoritas</p>
+      </div>
+    </section>
+
+    <section class="songs-section">
+      <div class="section-heading">
+        <div>
+          <p class="section-subtitle">GUARDADAS POR TI</p>
+          <h2>Tus favoritas</h2>
+        </div>
+      </div>
+
+      @if (favoritos.length > 0) {
+        <div class="song-list">
+          @for (cancion of favoritos; track cancion.id) {
+            <article class="song-item">
+              <div class="song-cover">♫</div>
+
+              <div class="song-info">
+                <h3>{{ cancion.titulo }}</h3>
+                <p>{{ cancion.artista }}</p>
+              </div>
+
+              <span class="song-category">
+                {{ cancion.categoria }}
+              </span>
+            </article>
+          }
+        </div>
+      } @else {
+        <div class="empty-library">
+          <div class="empty-icon">♫</div>
+          <h3>Tu biblioteca está esperando</h3>
+          <p>
+            Todavía no tienes canciones favoritas.
+            Explora Sonora y guarda las canciones que más te gusten.
+          </p>
+          <a routerLink="/buscar" class="explore-button">
+            Explorar canciones
+          </a>
+        </div>
+      }
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <a routerLink="/home" class="nav-item">
+      <span>⌂</span>
+      <small>Inicio</small>
+    </a>
+
+    <a routerLink="/buscar" class="nav-item">
+      <span>⌕</span>
+      <small>Buscar</small>
+    </a>
+
+    <a routerLink="/biblioteca" class="nav-item active">
+      <span>♫</span>
+      <small>Biblioteca</small>
+    </a>
+  </nav>
+
+</ion-content>
